@@ -1,0 +1,59 @@
+event: {
+    // FOR BACKEND CALCS
+    flattened: [
+        {
+            roleType: "frontend",
+            roleNum: 10,
+        },
+        {
+            roleType: "backend",
+            roleNum: 10,
+        },
+    ]
+
+    // FOR FRONTEND GROUPINGS   
+    groups: [
+        {
+            groupName: "jira",
+            roles: [
+                {
+                    roleType: "frontend",
+                    roleNum: 4,
+                },
+                {
+                    roleType: "backend",
+                    roleNum: 5,
+                }
+            ]
+        },
+        {
+            groupName: "confluence",
+            roles: [
+                {
+                    roleType: "frontend",
+                    roleNum: 6,
+                },
+                {
+                    roleType: "backend",
+                    roleNum: 4,
+                }
+            ]
+        }
+    ]
+
+    participants: [
+        {
+            name: "nicole",
+            prefs: ["frontend", "backend"]
+        },
+        {
+            name: "kim",
+            prefs: ["frontend"]
+        }
+        {
+            name: "henry",
+            prefs: ["backend"]
+        }
+    ]
+
+}

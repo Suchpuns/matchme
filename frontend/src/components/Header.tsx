@@ -2,7 +2,6 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { useNavigate } from "react-router-dom";
 
-
 const Header = (props: {eventName: string, index: string}) => {
   const navigate = useNavigate();
 

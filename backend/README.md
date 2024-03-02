@@ -74,7 +74,7 @@ event_name: str
 roles: List of [ {role_name: str, n_roles: int } ]
 ```
 
-**GET: /events/form_links**
+**POST: /events/form_links**
 ```
 event_name: str
 people: str[]

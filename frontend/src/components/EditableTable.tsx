@@ -52,6 +52,7 @@ export default function EditableTable() {
       ];
     });
   };
+
   return (
     <Box sx={{ width: '100%' }}>
       <Stack direction="row" spacing={1}>

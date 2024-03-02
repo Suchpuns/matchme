@@ -15,7 +15,7 @@ def generate_assignments(roles: list, preferences: list):
     # Node 0 Super Sink -> People
     for p in range(1,n_people+1):
         graph.addEdge(source,p,1,1)
-        print(f"source -> {p}")
+        # print(f"source -> {p}")
 
     # Nodes 1..n People
     for p in range(0, n_people):
@@ -24,13 +24,15 @@ def generate_assignments(roles: list, preferences: list):
         for r in range(0, n_roles):
             r_node = r + n_people + 1
             graph.addEdge(p_node, r_node, 1, preference[r])
-            print(f"{p_node} -> {r_node} (1, {preference[r]})")
+            # print(f"{p_node} -> {r_node} (1, {preference[r]})")
 
     # Nodes 2 n+1 .. n+r 
     for r in range(0, n_roles):
         r_node = r + n_people + 1
         graph.addEdge(r_node, sink, roles[r][1], 1)
-        print(f"{r_node} -> {sink} ({roles[r][1]}, 1)")
+        # print(f"{r_node} -> {sink} ({roles[r][1]}, 1)")
+
+    graph.print()
 
     resultGraph = graph.cycleCancel(source, sink)
     resultGraph.print()
@@ -42,7 +44,7 @@ def generate_assignments(roles: list, preferences: list):
         #print(row)
         for i, tup in enumerate(row):
             flow, cost = tup
-            if flow != 0:
+            if flow == 1:
                 role_name = roles[r][0]
                 print(i, tup)
                 person = preferences[i-1]['name']

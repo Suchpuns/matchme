@@ -14,8 +14,9 @@ class Graph:
             print()
     
     def addEdge(self, v: int, w: int, capacity: int, cost: int):
-        # print(f"Adding an edge between {v} and {w} - ({capacity}, {cost})")
+        print(f"Adding an edge between {v} and {w} - ({capacity}, {cost})")
         self.graph[v][w] = (capacity, cost)
+        self.print()
 
     def BFS(self, s: int, t: int, parent: list):
         visited = [False]*self.V

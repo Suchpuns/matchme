@@ -8,16 +8,23 @@ def hello_match_me():
 
 @app.route("/test")
 def test():
-    roles = [("FE", 7), ("BE",3)]
-    preferences = [
-        {
-            "name": "Dylan",
-            "preference": [1,2]
-        },
-        {
-            "name": "George",
-            "preference": [2,1]
-        }
-    ] * 5
+    roles = [("Wand", 2), ("Potion", 1), ("Crystal Ball", 1)]
+    preferences = [{
+        "name": "Dorian",
+        "preference": [1, 2, 3]
+    },
+    {
+        "name": "Dani",
+        "preference": [3, 2, 1]
+    },
+    {
+        "name": "Monica",
+        "preference": [2, 1, 3]
+    },
+    {
+        "name": "Nico",
+        "preference": [3, 2, 1]
+    }
+    ]
     res = generate_assignments(roles,preferences)
     return json.dumps(res)

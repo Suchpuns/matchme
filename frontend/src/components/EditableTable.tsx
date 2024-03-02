@@ -8,37 +8,30 @@ let idCounterRow = 0;
 
 const createRow = () => {
   idCounterRow += 1;
-  return { id: idCounterRow, name: "lol", role: "FKC" };
+  return { id: idCounterRow, role: "Role", group: "Group"};
 };
 
-let columns: GridColDef[] = [
-  { field: 'name', headerName: 'Name', width: 180, editable: true },
-  { field: 'role', headerName: 'Role', width: 180, editable: true }
-];
+let idCounterCol = -1;
+const createCol = () => {
+  idCounterCol += 1;
+  return { field: 'group' + idCounterCol, headerName: 'Group ' + idCounterCol, width: 180, editable: true};
+};
 
-let dummyrows: GridRowsProp = [
-  {
-    id: 1,
-    name: "test",
-    role: "FE",
-  },
-  {
-    id: 2,
-    name: "test2",
-    role: "BE",
-  },
-  {
-    id: 3,
-    name: "test3",
-    role: "FE",
-  },
+
+let columns: GridColDef[] = [
+  { field: 'role', headerName: 'Role', width: 180, editable: true },
+  { field: 'group', headerName: 'Group 1', width: 180, editable: true }
 ];
 
 export default function EditableTable() {
   const [rows, setRows] = React.useState(() => [createRow()]);
+  const [cols, setCols] = React.useState(() => [createCol()]);
 
   const handleAddRow = () => {
     setRows((prevRows) => [...prevRows, createRow()]);
+  };
+  const handleAddColumn = () => {
+    setCols((newCol: any) => [...newCol, columns.push(createCol())]);
   };
   const handleDeleteRow = () => {
     if (rows.length === 0) {
@@ -53,6 +46,13 @@ export default function EditableTable() {
     });
   };
 
+  const handleDeleteCol = () => {
+    if (columns.length == 1) {
+      return;
+    }
+    setCols((newCol: any) => [...newCol, columns.pop()]);
+    idCounterCol--;
+  };
   return (
     <Box sx={{ width: '100%' }}>
       <Stack direction="row" spacing={1}>
@@ -62,9 +62,16 @@ export default function EditableTable() {
         <Button size="small" onClick={handleAddRow}>
           Add a row
         </Button>
+        <Button size="small" onClick={handleAddColumn}>
+          Add a column
+        </Button>
+        <Button size="small" onClick={handleDeleteCol}>
+          Delete a column
+        </Button>
       </Stack>
       <div style={{ height: 300, width: '100%', backgroundColor: "white"}}>
-        <DataGrid rows={rows} columns={columns} />
+        <DataGrid rows={rows} columns={columns.map(column => (column
+        ))} />
       </div>
     </Box>
   );

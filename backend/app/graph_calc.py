@@ -37,6 +37,14 @@ def generate_assignments(roles: list, preferences: list):
     resultGraph = graph.cycleCancel(source, sink)
     resultGraph.print()
 
+    rtn_roles = []
+    for role in roles:
+        info = {
+            "role": role[0],
+            "people": []
+        }
+        rtn_roles.append(info)
+    print(roles)
     assignments = []
     for r in range(0, n_roles):
         r_node = r + n_people + 1
@@ -45,12 +53,11 @@ def generate_assignments(roles: list, preferences: list):
         for i, tup in enumerate(row):
             flow, cost = tup
             if flow == 1:
-                role_name = roles[r][0]
-                print(i, tup)
                 person = preferences[i-1]['name']
-                assignments.append({"role": role_name, "name": person})
+                choice = preferences[i-1]['preference'][r]
+                rtn_roles[r]['people'].append({"name": person, "choice": choice})
 
-    return assignments
+    return rtn_roles
 
     # Sink on n+r+1
         

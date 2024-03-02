@@ -6,6 +6,8 @@ import EventCreation from "./pages/admin/EventCreation.tsx"
 import Events from './pages/admin/Events.tsx'
 import EventPrefs from './pages/admin/EventPrefs.tsx'
 import EventComplete from './pages/admin/EventComplete.tsx'
+import TestDownload from './components/testDownload.tsx'
+import TestUpload from './components/testUpload.tsx'
 
 function App() {
   
@@ -21,6 +23,8 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Events/>}/>
+      <Route path="/test" element={<TestDownload/>}/>
+      <Route path="/test2" element={<TestUpload/>}/>
       <Route path="/admin/:eventName/create" element={<EventCreation/>}/>
       <Route path="/admin/:eventName/preference" element={<EventPrefs/>}/>
       <Route path="/admin/:eventName/complete" element={<EventComplete/>}/>

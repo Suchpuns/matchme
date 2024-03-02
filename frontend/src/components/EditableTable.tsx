@@ -20,7 +20,7 @@ const createCol = () => {
 
 let columns: GridColDef[] = [
   { field: 'role', headerName: 'Role', width: 180, editable: true },
-  { field: 'group', headerName: 'Group 1', width: 180, editable: true }
+  { field: '', headerName: 'Group 1', width: 180, editable: true }
 ];
 
 export default function EditableTable() {
@@ -62,11 +62,11 @@ export default function EditableTable() {
         <Button size="small" onClick={handleAddRow}>
           Add a row
         </Button>
-        <Button size="small" onClick={handleAddColumn}>
-          Add a column
-        </Button>
         <Button size="small" onClick={handleDeleteCol}>
           Delete a column
+        </Button>
+        <Button size="small" onClick={handleAddColumn}>
+          Add a column
         </Button>
       </Stack>
       <div style={{ height: 300, width: '100%', backgroundColor: "white"}}>

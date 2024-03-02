@@ -2,7 +2,7 @@ import json
 from app import app
 from app.graph_calc import generate_assignments
 from app import db
-from app.models import Event
+from app.models import Event, Preferences
 from sqlalchemy import update
 from flask import request
 from cryptography.fernet import Fernet
@@ -41,6 +41,11 @@ def delete_event():
     data = request.get_json()
     if "event_name" not in data:
         return {"error": "missing event_name"}
+    # Go delete all relevant preferences
+    event_id = db.session.query(Event.id).filter(Event.name == data["event_name"]).all()
+    for id in event_id:
+        id = id[0]
+        db.session.query(Preferences).filter(Preferences.event_id == id).delete()
     db.session.query(Event).filter(Event.name == data["event_name"]).delete()
     db.session.commit()
     return {"msg": "success"}
@@ -53,7 +58,6 @@ def get_roles():
         return {"error": "missing event_name"}
     print(data)
     # event = db.session.query(Event).filter(Event.name == data).all()
-    data = json.loads(data)
     event = db.session.query(Event.roles).filter(Event.name == data).first()
     if event is None:
         return {"error": "no event found"}
@@ -96,9 +100,7 @@ def get_form_links():
     for person in people:
         code_data = {"event_name": event_name, "person": person}
         code_data = json.dumps(code_data)
-        links.append(
-            f"http://{Config.BACKEND_URL}/form/{fernet.encrypt(code_data.encode()).decode()}"
-        )
+        links.append({person: fernet.encrypt(code_data.encode()).decode()})
     return {"links": links}
 
 
@@ -108,10 +110,66 @@ def post_form(code):
         return {"error": "backend has no key set"}
 
     data_json = fernet.decrypt(code.encode()).decode()
+    data = json.loads(data_json)
+    event_name = data["event_name"]
+    person = data["person"]
+    preferences = request.get_json()
+    preferences = preferences["preferences"]
 
-    print(data_json)
+    event_id = (
+        db.session.query(Event.id).filter(Event.name == data["event_name"]).first()
+    )
+
+    if not event_id:
+        return {"error": "no event found"}
+
+    pref = {"preferences": preferences}
+    print(json.dumps(pref))
+
+    new_pref = Preferences(
+        name=person, preference=json.dumps(pref), event_id=event_id[0]
+    )
+
+    db.session.add(new_pref)
+    db.session.commit()
 
     return {"msg": "success"}
+
+
+@app.route("/events/calculate", methods=["GET"])
+def get_events_calculate():
+    event_name = request.args.get("event_name")
+    if not event_name:
+        return {"error": "missing event_name"}
+
+    event_id = db.session.query(Event.id).filter(Event.name == event_name).first()
+
+    if not event_id:
+        return {"error": "event not found"}
+
+    event_id = event_id[0]
+
+    prefs_query = (
+        db.session.query(Preferences.name, Preferences.preference)
+        .filter(Preferences.event_id == event_id)
+        .all()
+    )
+
+    roles_query = db.session.query(Event.roles).filter(Event.name == event_name).first()
+
+    if not roles_query:
+        return {"error": "event not found"}
+
+    roles = roles_query[0]
+
+    prefs = []
+    for pref in prefs_query:
+        new_pref = {"name": pref[0], "preference": json.loads(pref[1])["preferences"]}
+        prefs.append(new_pref)
+
+    res = generate_assignments(roles, prefs)
+
+    return {"roles": res}
 
 
 @app.route("/test")

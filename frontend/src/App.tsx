@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import './App.css'
 import { Route, Routes } from 'react-router'
 
@@ -10,6 +10,7 @@ import TestDownload from './components/testDownload.tsx'
 import TestUpload from './components/testUpload.tsx'
 
 function App() {
+  
   useEffect(() => {
     fetch("http://127.0.0.1:5000")
       .then(resp => resp.json())
@@ -24,10 +25,9 @@ function App() {
       <Route path="/" element={<Events/>}/>
       <Route path="/test" element={<TestDownload/>}/>
       <Route path="/test2" element={<TestUpload/>}/>
-      <Route path="/admin/:eventname/create" element={<EventCreation/>}/>
-      <Route path="/admin/:eventname/preference" element={<EventPrefs/>}/>
-      <Route path="/admin/:eventname/complete" element={<EventComplete/>}/>
-
+      <Route path="/admin/:eventName/create" element={<EventCreation/>}/>
+      <Route path="/admin/:eventName/preference" element={<EventPrefs/>}/>
+      <Route path="/admin/:eventName/complete" element={<EventComplete/>}/>
     </Routes>
   )
 }

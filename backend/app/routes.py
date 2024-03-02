@@ -1,4 +1,6 @@
+import json
 from app import app
+from app.graph_calc import generate_assignments
 from app import db
 from app.models import Event
 from sqlalchemy import update
@@ -110,3 +112,16 @@ def post_form(code):
     print(data_json)
 
     return {"msg": "success"}
+
+
+@app.route("/test")
+def test():
+    roles = [("Wand", 2), ("Potion", 1), ("Crystal Ball", 1)]
+    preferences = [
+        {"name": "Dorian", "preference": [1, 2, 3]},
+        {"name": "Dani", "preference": [3, 2, 1]},
+        {"name": "Monica", "preference": [2, 1, 3]},
+        {"name": "Nico", "preference": [3, 2, 1]},
+    ]
+    res = generate_assignments(roles, preferences)
+    return json.dumps(res)

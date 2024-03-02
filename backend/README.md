@@ -46,14 +46,19 @@ Returns str[] # Returns all the event names
 ```
 event_name: str
 ```
+**DELETE: /events**
+```
+event_name: str
+Returns succssful: Boolean
+```
 
-**POST: /events/add_roles**
+**POST: /events/roles**
 ```
 event_name: str
 roles: List of [ {role_name: str, n_roles: int } ]
 ```
 
-**PUT: /events/add_roles**
+**PUT: /events/roles**
 ```
 event_name: str
 roles: List of [ {role_name: str, n_roles: int } ]

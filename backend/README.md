@@ -34,14 +34,14 @@ PeoplePref = {
 people: List of [ PeoplePref ]
 roles: List of [ {role_name: str, n_roles: int } ]
 
-Returns [ {role_name: str, person_name: str} ]
+Returns {roles: [ {role_name: str, person_name: str} ]}
 ```
 
 **GET: /events/calculate**
 ```
 event_name: str
 
-Returns [ {role_name: str, person_name: str} ]
+Returns {roles: [ {role_name: str, person_name: str} ]}
 ```
 **GET: /events**
 ```

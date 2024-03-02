@@ -1,21 +1,16 @@
-import { useState } from "react";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import { useNavigate } from "react-router-dom";
 
 
-const Header = () => {
-  const [activeTabIndex, setActiveTabIndex] = useState('0');
-
-  const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
-    setActiveTabIndex(newValue);
-  }
+const Header = (props: {eventName: string, index: string}) => {
+  const navigate = useNavigate();
 
   const renderTabs = () => {
-    switch (activeTabIndex) {
+    switch (props.index) {
       case '0':
-        console.log("hiiii from 0");
         return (
-          <Tabs onChange={handleChange} value={activeTabIndex} centered>
+          <Tabs onChange={() => navigate(`/admin/${props.eventName}/preference`)} value={props.index} centered>
             <Tab label="1. Creating Event" value='0' sx={styles.font}/>
             <Tab label="2. Sending Preferences" value='1' sx={styles.font}/>
             <Tab label="3. Matching Complete" value='2' sx={styles.font} disabled/>
@@ -23,7 +18,7 @@ const Header = () => {
         );
       case '1':
         return (
-          <Tabs onChange={handleChange} value={activeTabIndex} centered>
+          <Tabs onChange={() => navigate(`/admin/${props.eventName}/complete`)} value={props.index} centered>
             <Tab label="1. Creating Event" value='0' sx={styles.font} disabled/>
             <Tab label="2. Sending Preferences" value='1' sx={styles.font}/>
             <Tab label="3. Matching Complete" value='2' sx={styles.font}/>
@@ -31,9 +26,9 @@ const Header = () => {
         );
       case '2':
         return (
-          <Tabs onChange={handleChange} value={activeTabIndex} centered>
+          <Tabs value={props.index} centered>
             <Tab label="1. Creating Event" value='0' sx={styles.font} disabled/>
-            <Tab label="2. Sending Preferences" value='1' sx={styles.font}/>
+            <Tab label="2. Sending Preferences" value='1' sx={styles.font} disabled/>
             <Tab label="3. Matching Complete" value='2' sx={styles.font}/>
           </Tabs>
         );
@@ -42,6 +37,7 @@ const Header = () => {
 
   return(
     <>
+      <h1 className="text-3xl justify-self-center text-center text-amber-100">{props.eventName}</h1>
       {renderTabs()}
     </>
   );

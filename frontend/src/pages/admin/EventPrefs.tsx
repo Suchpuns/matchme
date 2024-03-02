@@ -3,7 +3,7 @@ import Header from "../../components/Header";
 const EventPrefs = () => {
     return (
       <>
-        <Header/>
+        <Header eventName='event name' index='1'/>
         <p style={{color: 'black'}}>prefs</p>
         <button>pressme</button>
       </>

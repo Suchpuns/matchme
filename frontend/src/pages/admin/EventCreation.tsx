@@ -1,7 +1,7 @@
 const EventCreation = () => {
   return (
     <>
-      <p style={{color: 'black'}}>hi</p>
+      <p style={{color: 'black'}}>create</p>
       <button>pressme</button>
     </>
   );

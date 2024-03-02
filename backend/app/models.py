@@ -5,11 +5,11 @@ import sqlalchemy.orm as so
 from app import db
 
 class Event(db.Model):
+    __tablename__ = "event"
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     name: so.Mapped[str] = so.mapped_column(sa.String(120), index=True)
     roles: so.Mapped[list[dict]] = so.mapped_column(sa.JSON)
-    preferences: so.WriteOnlyMapped['Preferences'] = so.relationship(
-        back_populates='event')
+    preferences: so.Mapped['Preferences'] = so.relationship(cascade='all, delete-orphan', backref='event', passive_deletes=True)
 
 
     def __repr__(self):

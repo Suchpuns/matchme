@@ -1,4 +1,6 @@
 event: {
+    status: {ONE OF: creating, preferencing, completed}
+    
     // FOR BACKEND CALCS
     flattened: [
         {

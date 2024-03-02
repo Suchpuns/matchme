@@ -4,11 +4,13 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
-let idCounter = 4;
+let idCounterRow = 0;
+
 const createRow = () => {
-  idCounter += 1;
-  return { id: idCounter, name: "lol", role: "FKC" };
+  idCounterRow += 1;
+  return { id: idCounterRow, name: "lol", role: "FKC" };
 };
+
 let columns: GridColDef[] = [
   { field: 'name', headerName: 'Name', width: 180, editable: true },
   { field: 'role', headerName: 'Role', width: 180, editable: true }

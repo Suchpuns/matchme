@@ -86,6 +86,7 @@ def post_roles():
 @app.route("/events/form_links", methods=["POST"])
 def get_form_links():
     data = request.get_json()
+    print(data)
     if "event_name" not in data:
         return {"error": "missing event_name"}
     event_name = data["event_name"]

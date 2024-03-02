@@ -7,6 +7,7 @@ import Events from './pages/admin/Events.tsx'
 import EventPrefs from './pages/admin/EventPrefs.tsx'
 import EventComplete from './pages/admin/EventComplete.tsx'
 import TestDownload from './components/testDownload.tsx'
+import TestUpload from './components/testUpload.tsx'
 
 function App() {
   useEffect(() => {
@@ -22,6 +23,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Events/>}/>
       <Route path="/test" element={<TestDownload/>}/>
+      <Route path="/test2" element={<TestUpload/>}/>
       <Route path="/admin/:eventname/create" element={<EventCreation/>}/>
       <Route path="/admin/:eventname/preference" element={<EventPrefs/>}/>
       <Route path="/admin/:eventname/complete" element={<EventComplete/>}/>

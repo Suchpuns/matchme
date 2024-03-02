@@ -1,11 +1,12 @@
 import { createContext, useEffect, useState } from 'react'
-import './App.css'
+// import './App.css'
 import { Route, Routes } from 'react-router'
 
 import EventCreation from "./pages/admin/EventCreation.tsx"
 import Events from './pages/admin/Events.tsx'
 import EventPrefs from './pages/admin/EventPrefs.tsx'
 import EventComplete from './pages/admin/EventComplete.tsx'
+import SendPref from './pages/user/SendPref.tsx'
 
 function App() {
   
@@ -24,6 +25,7 @@ function App() {
       <Route path="/admin/:eventName/create" element={<EventCreation/>}/>
       <Route path="/admin/:eventName/preference" element={<EventPrefs/>}/>
       <Route path="/admin/:eventName/complete" element={<EventComplete/>}/>
+      <Route path="/user/:eventName/:userName" element={<SendPref/>}/>
     </Routes>
   )
 }

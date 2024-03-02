@@ -69,7 +69,7 @@ export default function EditableTable() {
           Add a column
         </Button>
       </Stack>
-      <div style={{ height: 300, width: '100%', backgroundColor: "white"}}>
+      <div style={{ height: 500, width: '100%', backgroundColor: "white",}}>
         <DataGrid rows={rows} columns={columns.map(column => (column
         ))} />
       </div>

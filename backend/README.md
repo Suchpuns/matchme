@@ -77,7 +77,7 @@ Returns str[] # Array of form links
 ```
 **GET: /form/:code** # e.g. /form/OIfjdd43FD
 ```
-Returns str[] # Array of role names. Empty if incorrect code.
+Returns {name: str, str[]} # Array of role names. Empty if incorrect code.
 ```
 **POST: /form/:code**
 ```

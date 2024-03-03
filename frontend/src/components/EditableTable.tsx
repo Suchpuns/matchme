@@ -1,5 +1,7 @@
 import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
 import * as React from 'react';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -23,6 +25,15 @@ let columns: GridColDef[] = [
   { field: '', headerName: 'Group 1', width: 180, editable: true }
 ];
 
+let group: {name: String, roleNames: String[], roleCount: number[]} = {
+  name: "",
+  roleNames: [],
+  roleCount: []
+}
+
+let groups = [];
+
+
 export default function EditableTable() {
   const [rows, setRows] = React.useState(() => [createRow()]);
   const [cols, setCols] = React.useState(() => [createCol()]);
@@ -30,9 +41,11 @@ export default function EditableTable() {
   const handleAddRow = () => {
     setRows((prevRows) => [...prevRows, createRow()]);
   };
+  
   const handleAddColumn = () => {
     setCols((newCol: any) => [...newCol, columns.push(createCol())]);
   };
+
   const handleDeleteRow = () => {
     if (rows.length === 0) {
       return;
@@ -53,6 +66,21 @@ export default function EditableTable() {
     setCols((newCol: any) => [...newCol, columns.pop()]);
     idCounterCol--;
   };
+
+  const location = useLocation();
+  useEffect(() => {
+    /*
+    groups = columns.map(column => {
+      let group = {
+        name: column.headerName,
+        roleNames: [],
+        roleCount: []
+      }
+    });
+    */
+    console.log(columns);
+  }, [location]);
+  
   return (
     <Box sx={{ width: '100%' }}>
       <Stack direction="row" spacing={1}>

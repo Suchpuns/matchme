@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    padding: 2rem;
+
+    background: radial-gradient(74.17% 176.54% at 45.21% 38.43%, #2F5566 6.02%, #387876 35.02%, #3F9182 55.69%, #D59D8C 81.56%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+  }

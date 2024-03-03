@@ -18,7 +18,7 @@ const createCol = () => {
   idCounterCol += 1;
   return { field: 'group' + idCounterCol, headerName: 'Group ' + idCounterCol, width: 180, editable: true};
 };
-
+    
 
 let columns: GridColDef[] = [
   { field: 'role', headerName: 'Role', width: 180, editable: true },

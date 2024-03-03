@@ -1,8 +1,6 @@
-import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+import { GridColDef, GridRowsProp } from "@mui/x-data-grid";
+import * as React from "react";
+import { Paper } from "@mui/material";
 
 let idCounterRow = 0;
 
@@ -11,12 +9,9 @@ const createRow = () => {
   return { id: idCounterRow, name: "lol", role: "FKC" };
 };
 
-let columns: GridColDef[] = [
-  { field: 'name', headerName: 'Name', width: 180, editable: true },
-  { field: 'role', headerName: 'Role', width: 180, editable: true }
-];
+const columns: GridColDef[] = [{ field: "role", headerName: "Role", width: 180, editable: true }];
 
-let dummyrows: GridRowsProp = [
+const dummyrows: GridRowsProp = [
   {
     id: 1,
     name: "test",
@@ -34,38 +29,84 @@ let dummyrows: GridRowsProp = [
   },
 ];
 
-export default function EditableTable() {
-  const [rows, setRows] = React.useState(() => [createRow()]);
+interface TableProp {
+  teamName: string;
+  getTableRoles: (teamName: string) => string[];
+  setTableRoles: (teamName: string, roles: string[]) => void;
+}
 
-  const handleAddRow = () => {
-    setRows((prevRows) => [...prevRows, createRow()]);
+export default function EditableTable(props: TableProp) {
+  const [rows, setRows] = React.useState(() => [createRow()]);
+  const [roleName, setRoleName] = React.useState<string>("");
+
+  const updateRoleName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRoleName(e.target.value);
   };
-  const handleDeleteRow = () => {
-    if (rows.length === 0) {
-      return;
-    }
-    setRows((prevRows) => {
-      const rowToDeleteIndex = prevRows.length - 1;
-      return [
-        ...rows.slice(0, rowToDeleteIndex),
-        ...rows.slice(rowToDeleteIndex + 1),
-      ];
-    });
+
+  const addRole = (e: React.MouseEvent<HTMLElement>) => {
+    const roles = props.getTableRoles(props.teamName);
+    const newRoles = [...roles];
+    newRoles.push(roleName);
+    console.log(newRoles);
+    props.setTableRoles(props.teamName, newRoles);
+    setRoleName("");
+  };
+
+  const deleteRole = (e: React.MouseEvent<HTMLElement>) => {
+    const roles = props.getTableRoles(props.teamName);
+    const newRoles = [...roles];
+    const i: number = Number(e.currentTarget.id);
+    newRoles.splice(i, 1);
+    console.log(newRoles);
+    roles.splice(i, 1);
+    props.setTableRoles(props.teamName, newRoles);
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Stack direction="row" spacing={1}>
-        <Button size="small" onClick={handleDeleteRow}>
-          Delete a row
-        </Button>
-        <Button size="small" onClick={handleAddRow}>
-          Add a row
-        </Button>
-      </Stack>
-      <div style={{ height: 300, width: '100%', backgroundColor: "white"}}>
-        <DataGrid rows={rows} columns={columns} />
+    <Paper sx={{ backgroundColor: "lightblue" }} className="text-black w-80">
+      <div className="flex items-center flex-col">
+        <h1 style={{ color: "black" }} className="text-2xl font-bold mx-auto mt-3 mb-3">
+          {props.teamName}
+        </h1>
+        {props.getTableRoles(props.teamName).map((role, index) => {
+          return (
+            <div key={role} className="">
+              <div className="flex flex-row mb-3">
+                <p>{role}</p>
+                <button
+                  type="button"
+                  className="text-gray-900 ml-4 bg-transparent rounded-full text-sm p-0.5 inline-flex items-center hover:bg-red-500 hover:text-white"
+                  id={String(index)}
+                  onClick={deleteRole}
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          );
+        })}
+        <div>
+          <input onChange={updateRoleName} value={roleName}></input>
+          <button
+            onClick={addRole}
+            className="ml-5 mb-5 mt-2 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Add Role
+          </button>
+        </div>
       </div>
-    </Box>
+    </Paper>
   );
 }

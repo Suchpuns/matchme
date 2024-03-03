@@ -10,15 +10,6 @@ import TestDownload from "./components/testDownload.tsx";
 import TestUpload from "./components/testUpload.tsx";
 
 function App() {
-  useEffect(() => {
-    fetch("http://127.0.0.1:5000")
-      .then(resp => resp.json())
-      .then(data => {
-        console.log(data);
-      })
-      .catch(e => console.log(e));
-  }, []);
-
   return (
     <Routes>
       <Route path="/" element={<Events />} />

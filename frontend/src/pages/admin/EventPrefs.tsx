@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { TextField, Tooltip, Paper } from "@mui/material";
 import Header from "../../components/Header";
@@ -8,6 +8,7 @@ const EventPrefs = () => {
   const [username, updateUsername] = useState<string>("");
   const [links, setLinks] = useState<Record<string, string>>({});
   const { eventName } = useParams();
+  const navigate = useNavigate();
   const groups = [
     {
       groupName: "jira",
@@ -41,6 +42,10 @@ const EventPrefs = () => {
 
   const updateUsers = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateUsername(e.target.value);
+  };
+
+  const goComplete = () => {
+    navigate(`/admin/${eventName}/complete`);
   };
 
   const addUser = async () => {
@@ -87,8 +92,8 @@ const EventPrefs = () => {
   return (
     <>
       <Header eventName={eventName ? eventName : "New Event"} index="1" />
-      <div className="ml-20 mx-auto grid grid-cols-3 gap-10 mt-5 mr-20">
-        <div className="grid col-span-1">
+      <div className="ml-20 mx-auto gap-10 mt-5 mr-20">
+        <div style={{ width: "60rem" }} className="mx-auto">
           <div className="mb-6">
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-amber focus:outline-blue-500">
               Add user
@@ -165,9 +170,14 @@ const EventPrefs = () => {
               </>
             );
           })}
-        </div>
-        <div className="grid col-span-2">
-          <button>Submit Preferences</button>
+          <div className="grid col-span-2">
+            <button
+              onClick={goComplete}
+              className="p-3 w-56 h-20 bg-card-orange hover:bg-card-green w-full my-7 rounded-xl font-semibold"
+            >
+              Go match!
+            </button>
+          </div>
         </div>
       </div>
     </>

@@ -34,7 +34,7 @@ def get_groups():
     data = request.args.get("event_name")
     if data not in groups:
         return {"error": "event_name not found"}
-    return {"group": json.loads(groups[data])}
+    return {"group": json.dumps(groups[data])}
 
 
 @app.route("/")

@@ -9,6 +9,7 @@ const SendPref = () => {
   const { eventName, userName, code } = useParams();
   const [prefs, setPrefs] = useState<string[]>([]);
   const [rolesList, setRolesList] = useState<string[]>([]);
+  const [submitted, setSubmitted] = useState<boolean>(false);
 
   useEffect(() => {
     console.log(eventName);
@@ -55,7 +56,7 @@ const SendPref = () => {
       }
     }
     console.log(new_prefs);
-    const res = await fetch(`${import.meta.env.VITE_BE_URL}/form/${code}`, {
+    await fetch(`${import.meta.env.VITE_BE_URL}/form/${code}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -63,6 +64,7 @@ const SendPref = () => {
       },
       body: JSON.stringify({ preferences: new_prefs }),
     });
+    setSubmitted(true);
   };
 
   // lmao x2
@@ -126,6 +128,15 @@ const SendPref = () => {
           >
             Submit
           </button>
+          {submitted ? (
+            <div className="bg-card-green rounded-xl mx-auto flex items-center">
+              <p className="mx-auto">
+                <b>SUBMITTED</b>
+              </p>
+            </div>
+          ) : (
+            <div></div>
+          )}
         </div>
       </div>
     </div>

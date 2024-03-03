@@ -1,5 +1,11 @@
 #root {
   width: 100vw;
   height: 100vh;
-  background:  #2F5566 /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+  background: radial-gradient(74.17% 176.54% at 45.21% 38.43%,
+      #2f5566 6.02%,
+      #387876 35.02%,
+      #3f9182 55.69%,
+      #d59d8c 81.56%)
+    /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */
+  ;
 }

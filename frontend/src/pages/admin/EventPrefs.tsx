@@ -117,7 +117,7 @@ const EventPrefs = () => {
                   </p>
                   <Tooltip title="Copy link">
                     <svg
-                      className="mr-3 w-5 h-5 fill-gray-400 hover:fill-gray-600 active:fill-gray-900"
+                      className="mr-3 w-5 h-5 fill-gray-900 hover:fill-gray-600 active:fill-gray-400"
                       onClick={() => {
                         navigator.clipboard.writeText("hey");
                       }}
@@ -139,7 +139,7 @@ const EventPrefs = () => {
 
                   <button
                     type="button"
-                    className="text-gray-400 mr-1 bg-transparent rounded-full text-sm p-0.5 m-1 inline-flex items-center hover:bg-red-500 hover:text-white"
+                    className="text-gray-900 mr-1 bg-transparent rounded-full text-sm p-0.5 m-1 inline-flex items-center hover:bg-red-500 hover:text-white"
                     id={user}
                     onClick={removeUser}
                   >

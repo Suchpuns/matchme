@@ -59,9 +59,13 @@ const EventPrefs = () => {
       body: JSON.stringify({ event_name: eventName, people: users }),
     });
     const data = await res.json();
+    console.log(eventName);
+
     for (const link of data.links) {
-      if (username in link) {
-        links[username] = link[username];
+      if (link["person_name"] == username) {
+        console.log(link);
+        const user_link = `http://localhost:5173/user/${link["event_name"]}/${link["person_name"]}/${link["person"]}`;
+        links[username] = user_link;
         setLinks(links);
         updateUsername(username);
         updateUsername("");
@@ -118,11 +122,11 @@ const EventPrefs = () => {
                   <Tooltip title="Copy link">
                     <svg
                       className="mr-3 w-5 h-5 fill-gray-900 hover:fill-gray-600 active:fill-gray-400"
-                      onClick={() => {
-                        navigator.clipboard.writeText("hey");
+                      onClick={(e: MouseEvent<HTMLElement>) => {
+                        navigator.clipboard.writeText(e.currentTarget.id);
                       }}
                       version="1.1"
-                      id="Capa_1"
+                      id={links[user]}
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 352.804 352.804"
                     >
@@ -163,7 +167,7 @@ const EventPrefs = () => {
           })}
         </div>
         <div className="grid col-span-2">
-          <h2>Yo</h2>
+          <button>Submit Preferences</button>
         </div>
       </div>
     </>

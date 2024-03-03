@@ -13,15 +13,21 @@ import PersonRow from "../../components/PersonRow";
 const EventComplete = () => {
   const { eventName } = useParams();
 
-  // useEffect(() => {
-  //   console.log(eventName)
-  //   fetch(`http://localhost:5000/events/calculate?event_name=${eventName?.toLowerCase()}`)
-  //   .then(resp => resp.json())
-  //   .then(resp_data => {
-  //     console.log("Response", resp_data)
-  //     setData(resp_data.roles)
-  //   })
-  // },[])
+  useEffect(() => {
+    console.log(eventName)
+    fetch(`http://localhost:5000/events/calculate?event_name=${eventName}`)
+    .then(resp => resp.json())
+    .then(resp_data => {
+      console.log("Response", resp_data)
+      setData(resp_data.roles)
+
+      fetch(`http://localhost:5000/groups?event_name=${eventName}`)
+      .then(resp => resp.json())
+      .then(resp_data => {
+        setGroupData(resp_data)
+      })
+    })
+  },[])
 
   const [data, setData] = useState([{"role": "Wand", "people": [{"name": "Dorian", "choice": 1}, {"name": "Dani", "choice": 3}]}, {"role": "Potion", "people": [{"name": "Monica", "choice": 1}]}, {"role": "Crystal Ball", "people": [{"name": "Nico", "choice": 1}]}])
 

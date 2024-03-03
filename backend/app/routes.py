@@ -14,6 +14,29 @@ if Config.FERMET_KEY:
     fernet = Fernet(Config.FERMET_KEY)
 
 
+groups = {}
+
+
+@app.route("/groups", methods=["POST"])
+def post_groups():
+    data = request.get_json()
+    if "groups" not in data:
+        return {"error": "missing groups"}
+    for name in data["groups"]:
+        groups[name] = data["groups"][name]
+
+    print(groups)
+    return {"msg": "success"}
+
+
+@app.route("/groups", methods=["GET"])
+def get_groups():
+    data = request.args.get("event_name")
+    if data not in groups:
+        return {"error": "event_name not found"}
+    return {"group": json.loads(groups[data])}
+
+
 @app.route("/")
 def hello_match_me():
     return {"msg": "Hello world"}

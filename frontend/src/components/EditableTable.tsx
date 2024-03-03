@@ -63,7 +63,7 @@ export default function EditableTable(props: TableProp) {
   };
 
   return (
-    <Paper sx={{ backgroundColor: "lightblue" }} className="text-black w-80">
+    <Paper sx={{ backgroundColor: "rgba(150, 234, 198, 0.7)" }} className="text-black w-80">
       <div className="flex items-center flex-col">
         <h1 style={{ color: "black" }} className="text-2xl font-bold mx-auto mt-3 mb-3">
           {props.teamName}
@@ -101,7 +101,7 @@ export default function EditableTable(props: TableProp) {
           <input onChange={updateRoleName} value={roleName}></input>
           <button
             onClick={addRole}
-            className="ml-5 mb-5 mt-2 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="ml-5 mb-5 mt-2 bg-theme-cream hover:bg-card-orange active:bg-black text-black font-bold py-2 px-4 rounded"
           >
             Add Role
           </button>

@@ -7,7 +7,7 @@ https://flask.palletsprojects.com/en/3.0.x/installation/
 
 Setup
 ``` For mac/linux/wsl
-Create Env  -  $ python3 -m venv .env
+Create Env  -  $ python3 -m venv .venv
 Activate    -  $ . .venv/bin/activate
 Install     -  $ (.venv) pip install -r requirements.txt
 ```
@@ -34,14 +34,14 @@ PeoplePref = {
 people: List of [ PeoplePref ]
 roles: List of [ {role_name: str, n_roles: int } ]
 
-Returns [ {role_name: str, person_name: str} ]
+Returns {roles: [ {role_name: str, person_name: str} ]}
 ```
 
 **GET: /events/calculate**
 ```
 event_name: str
 
-Returns [ {role_name: str, person_name: str} ]
+Returns {roles: [ {role_name: str, person_name: str} ]}
 ```
 **GET: /events**
 ```
@@ -83,7 +83,7 @@ Returns str[] # Array of form links
 ```
 **GET: /form/:code** # e.g. /form/OIfjdd43FD
 ```
-Returns {name: str, str[]} # Array of role names. Empty if incorrect code.
+Returns {"links": {name: link}} # Array of role names. Empty if incorrect code.
 ```
 **POST: /form/:code**
 ```

@@ -10,15 +10,18 @@ import Parser from "@json2csv/plainjs/Parser.js";
 import RoleGrouping from "../../components/RoleGrouping";
 import PersonRow from "../../components/PersonRow";
 
-const getNumberWithOrdinal = (n: number) => {
-  var s = ["th", "st", "nd", "rd"],
-      v = n % 100;
-  return n + (s[(v - 20) % 10] || s[v] || s[0]);
-}
-
-
 const EventComplete = () => {
   const { eventName } = useParams();
+
+  // useEffect(() => {
+  //   console.log(eventName)
+  //   fetch(`http://localhost:5000/events/calculate?event_name=${eventName?.toLowerCase()}`)
+  //   .then(resp => resp.json())
+  //   .then(resp_data => {
+  //     console.log("Response", resp_data)
+  //     setData(resp_data.roles)
+  //   })
+  // },[])
 
   const [data, setData] = useState([{"role": "Wand", "people": [{"name": "Dorian", "choice": 1}, {"name": "Dani", "choice": 3}]}, {"role": "Potion", "people": [{"name": "Monica", "choice": 1}]}, {"role": "Crystal Ball", "people": [{"name": "Nico", "choice": 1}]}])
 
@@ -30,7 +33,7 @@ const EventComplete = () => {
             roles: [
                 {
                     roleType: "Wand",
-                    roleNum: 1,
+                    roleNum: 2,
                 },
                 {
                     roleType: "Potion",
@@ -118,6 +121,7 @@ const EventComplete = () => {
           groupDict.roles.push({
             "role_name": role.roleType,
             "names": people,
+            "desired": role.roleNum
           })
         }        
       }
@@ -156,7 +160,7 @@ const EventComplete = () => {
 
     const roleList = group.roles.map(role => {
       return (
-        <RoleGrouping role_name={role.role_name} people={role.names}/>
+        <RoleGrouping role_name={role.role_name} people={role.names} desired={role.desired}/>
       )
     })
 
@@ -181,7 +185,7 @@ const EventComplete = () => {
   return (
     <div>
       <Header eventName={eventName ? eventName : 'New Event'} index='2' />
-      <div className="h-svh overflow-hidden">
+      <div className="h-screen">
         <div className="flex m-5 justify-between">
           <div className="mt-10 w-1/3" id="Role Assignments">
             {roles}

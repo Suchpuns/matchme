@@ -9,13 +9,6 @@ import { useEffect, useState } from "react";
 import Parser from "@json2csv/plainjs/Parser.js";
 import RoleGrouping from "../../components/RoleGrouping";
 import PersonRow from "../../components/PersonRow";
-
-const getNumberWithOrdinal = (n: number) => {
-  const s = ["th", "st", "nd", "rd"],
-    v = n % 100;
-  return n + (s[(v - 20) % 10] || s[v] || s[0]);
-};
-
 const EventComplete = ({ events, setEvents }) => {
   const { eventName } = useParams();
 
@@ -128,6 +121,7 @@ const EventComplete = ({ events, setEvents }) => {
           groupDict.roles.push({
             role_name: role.roleType,
             names: people,
+            desired: role.roleNum,
           });
         }
       }
@@ -163,7 +157,7 @@ const EventComplete = ({ events, setEvents }) => {
     console.log(group);
 
     const roleList = group.roles.map(role => {
-      return <RoleGrouping role_name={role.role_name} people={role.names} />;
+      return <RoleGrouping role_name={role.role_name} people={role.names} desired={role.desired} />;
     });
 
     return (
@@ -185,7 +179,7 @@ const EventComplete = ({ events, setEvents }) => {
   return (
     <div>
       <Header eventName={eventName ? eventName : "New Event"} index="2" />
-      <div className="h-svh overflow-hidden">
+      <div className="h-screen">
         <div className="flex m-5 justify-between">
           <div className="mt-10 w-1/3" id="Role Assignments">
             {roles}
@@ -202,13 +196,11 @@ const EventComplete = ({ events, setEvents }) => {
         <div className="flex m-5 justify-between">
           <div className="w-1/3">
             <Button className="w-full" variant="contained" onClick={e => downloadAsCSV()}>
-              {" "}
               Download Roles
             </Button>
           </div>
           <div className="w-1/3">
             <Button className="w-full" variant="contained" onClick={e => downloadAsCSV()}>
-              {" "}
               Download Roles with Teams
             </Button>
           </div>

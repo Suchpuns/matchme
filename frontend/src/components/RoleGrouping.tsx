@@ -1,6 +1,6 @@
 import PersonRow from "./PersonRow"
 
-const RoleGrouping = ({role_name, people}) => {
+const RoleGrouping = ({role_name, people, desired}) => {
     const peopleList =  people.map(person => {
         return (
             <div className="ml-4">
@@ -8,11 +8,11 @@ const RoleGrouping = ({role_name, people}) => {
             </div>
         )
     })
-    
+
     console.log(role_name)
     return (
         <>
-            <div className="font-bold text-italic">{role_name}</div>
+            <div className="font-bold text-italic">{role_name} ({people.length}/{desired})</div>
             {peopleList}
         </>
     )

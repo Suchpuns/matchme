@@ -100,7 +100,13 @@ def get_form_links():
     for person in people:
         code_data = {"event_name": event_name, "person": person}
         code_data = json.dumps(code_data)
-        links.append({person: fernet.encrypt(code_data.encode()).decode()})
+        links.append(
+            {
+                "person": fernet.encrypt(code_data.encode()).decode(),
+                "event_name": "event_name",
+                "person_name": person,
+            }
+        )
     return {"links": links}
 
 
